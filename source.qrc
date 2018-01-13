@@ -7,5 +7,7 @@
         <file>Image/cal.ico</file>
         <file>Image/refreshmemory.ico</file>
         <file>Image/rfreshtime.ico</file>
+        <file>Image/rfeshbirthday.ico</file>
+        <file>Image/birthday.ico</file>
     </qresource>
 </RCC>

@@ -11,13 +11,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     value_time();
     value_memory();
+    value_birthday();
     refresh_time();
     refresh_memory();
+    refresh_birthday();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-
-

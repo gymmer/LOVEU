@@ -20,6 +20,13 @@ void MainWindow::on_setmemory_triggered()
     connect(setmemory_window,SIGNAL(finished(int)),this,SLOT(on_rfreshmemory_triggered()));
 }
 
+void MainWindow::on_setbirthday_triggered()
+{
+    setbirthday *setbirthday_window = new setbirthday(this);
+    setbirthday_window->show();
+    connect(setbirthday_window,SIGNAL(finished(int)),this,SLOT(on_rfreshbirthday_triggered()));
+}
+
 void MainWindow::on_rfreshtime_triggered()
 {
     value_time();
@@ -32,6 +39,13 @@ void MainWindow::on_rfreshmemory_triggered()
     value_memory();
     refresh_memory();
     ui->tabWidget->setCurrentIndex(1);
+}
+
+void MainWindow::on_rfreshbirthday_triggered()
+{
+    value_birthday();
+    refresh_birthday();
+    ui->tabWidget->setCurrentIndex(2);
 }
 
 void MainWindow::on_about_triggered()

@@ -20,19 +20,22 @@ SOURCES += main.cpp\
     setmemory.cpp \
     def_function.cpp \
     def_system.cpp \
-    def_triggered.cpp
+    def_triggered.cpp \
+    setbirthday.cpp
 
 HEADERS  += mainwindow.h \
     settime.h \
     info.h \
     usage.h \
-    setmemory.h
+    setmemory.h \
+    setbirthday.h
 
 FORMS    += mainwindow.ui \
     settime.ui \
     info.ui \
     usage.ui \
-    setmemory.ui
+    setmemory.ui \
+    setbirthday.ui
 
 RC_FILE += LOVEU.rc
 
