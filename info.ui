@@ -157,7 +157,7 @@
        </font>
       </property>
       <property name="text">
-       <string>版本：1.0</string>
+       <string>版本：2.0</string>
       </property>
      </widget>
     </item>
@@ -207,7 +207,7 @@
        </font>
       </property>
       <property name="text">
-       <string>日期：2015.1.17</string>
+       <string>日期：2015.1.18</string>
       </property>
      </widget>
     </item>

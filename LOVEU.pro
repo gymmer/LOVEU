@@ -16,17 +16,23 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     settime.cpp \
     info.cpp \
-    help.cpp
+    usage.cpp \
+    setmemory.cpp \
+    def_function.cpp \
+    def_system.cpp \
+    def_triggered.cpp
 
 HEADERS  += mainwindow.h \
     settime.h \
     info.h \
-    help.h
+    usage.h \
+    setmemory.h
 
 FORMS    += mainwindow.ui \
     settime.ui \
     info.ui \
-    help.ui
+    usage.ui \
+    setmemory.ui
 
 RC_FILE += LOVEU.rc
 

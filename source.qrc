@@ -3,7 +3,9 @@
         <file>Image/quit.ico</file>
         <file>Image/time.ico</file>
         <file>Image/help.ico</file>
-        <file>Image/rfresh.ico</file>
         <file>Image/info.ico</file>
+        <file>Image/cal.ico</file>
+        <file>Image/refreshmemory.ico</file>
+        <file>Image/rfreshtime.ico</file>
     </qresource>
 </RCC>
