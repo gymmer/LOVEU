@@ -27,6 +27,13 @@ void MainWindow::on_setbirthday_triggered()
     connect(setbirthday_window,SIGNAL(finished(int)),this,SLOT(on_rfreshbirthday_triggered()));
 }
 
+void MainWindow::on_setweather_triggered()
+{
+    setweather *setweather_window = new setweather(this);
+    setweather_window->show();
+    connect(setweather_window,SIGNAL(finished(int)),this,SLOT(on_rfreshweather_triggered()));
+}
+
 void MainWindow::on_rfreshtime_triggered()
 {
     value_time();
@@ -46,6 +53,13 @@ void MainWindow::on_rfreshbirthday_triggered()
     value_birthday();
     refresh_birthday();
     ui->tabWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_rfreshweather_triggered()
+{
+    value_weather();
+    refresh_weather();
+    ui->tabWidget->setCurrentIndex(3);
 }
 
 void MainWindow::on_about_triggered()

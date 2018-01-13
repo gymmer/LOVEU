@@ -11,5 +11,8 @@
         <file>Image/birthday.ico</file>
         <file>Image/setting.ico</file>
         <file>Image/refresh.ico</file>
+        <file>Image/refreshweather.ico</file>
+        <file>Image/weather.ico</file>
+        <file>Image/city.ico</file>
     </qresource>
 </RCC>

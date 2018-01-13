@@ -5,6 +5,10 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += network
+QT       += xml
+
+CONFIG += c++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,23 +26,29 @@ SOURCES += main.cpp\
     def_system.cpp \
     def_triggered.cpp \
     setbirthday.cpp \
-    def_toolButton.cpp
+    def_toolButton.cpp \
+    citymanager.cpp \
+    setweather.cpp
 
 HEADERS  += mainwindow.h \
     settime.h \
     info.h \
     usage.h \
     setmemory.h \
-    setbirthday.h
+    setbirthday.h \
+    citymanager.h \
+    setweather.h
 
 FORMS    += mainwindow.ui \
     settime.ui \
     info.ui \
     usage.ui \
     setmemory.ui \
-    setbirthday.ui
+    setbirthday.ui \
+    setweather.ui
 
 RC_FILE += LOVEU.rc
 
 RESOURCES += \
-    source.qrc
+    source.qrc \
+    weather.qrc

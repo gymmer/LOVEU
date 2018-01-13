@@ -22,25 +22,25 @@ setbirthday::setbirthday(QWidget *parent) :
 
     //以只读方式打开配置文件birthday.txt
     QFile file("birthday.txt");
-    if (!file.open(QIODevice::ReadOnly | QFile::Text))  //无配置文件，显示当前时间
+    if (!file.open(QIODevice::ReadOnly | QFile::Text))  //无配置文件
     {
         int current_year   = current_date.year();
         int current_month  = current_date.month();
         int current_day    = current_date.day();
 
-        my_birthday.setDate(current_year, current_month, current_day);
+        my_birthday.setDate (current_year, current_month, current_day);
         her_birthday.setDate(current_year, current_month, current_day);
     }
     else    //读取配置文件成功
     {
         QTextStream in(&file);
         int my_birthday_month  = in.readLine().toInt();
-        int my_birthday_day = in.readLine().toInt();
-        int her_birthday_month   = in.readLine().toInt();
-        int her_birthday_day  = in.readLine().toInt();
+        int my_birthday_day    = in.readLine().toInt();
+        int her_birthday_month = in.readLine().toInt();
+        int her_birthday_day   = in.readLine().toInt();
         birthday_mode = in.readLine().toInt();
 
-        my_birthday.setDate(1900,my_birthday_month, my_birthday_day);
+        my_birthday.setDate (1900,my_birthday_month,  my_birthday_day);
         her_birthday.setDate(1900,her_birthday_month, her_birthday_day);
 
         file.close();
@@ -58,7 +58,7 @@ setbirthday::~setbirthday()
 
 void setbirthday::on_save_pushButton_clicked()
 {
-    QDate my_birthday = ui->my_birthday_dateEdit->date();
+    QDate my_birthday  = ui->my_birthday_dateEdit->date();
     QDate her_birthday = ui->her_birthday_dateEdit->date();
     int mode  = ui->birthday_mode_comboBox->currentIndex();
 
@@ -69,8 +69,8 @@ void setbirthday::on_save_pushButton_clicked()
         qDebug() << endl << file.errorString();
     }
     QTextStream out(&file);
-    out << my_birthday.month() << endl << my_birthday.day() << endl
-          << her_birthday.month() << endl << her_birthday.day() << endl << mode;
+    out << my_birthday.month()  << endl << my_birthday.day()  << endl
+        << her_birthday.month() << endl << her_birthday.day() << endl << mode;
     file.close();
     close();
 }

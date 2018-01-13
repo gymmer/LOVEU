@@ -7,10 +7,12 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
     menu->addAction(ui->rfreshtime);
     menu->addAction(ui->rfreshmemory);
     menu->addAction(ui->rfreshbirthday);
+    menu->addAction(ui->rfreshweather);
     menu->addSeparator();
     menu->addAction(ui->settime);
     menu->addAction(ui->setmemory);
     menu->addAction(ui->setbirthday);
+    menu->addAction(ui->setweather);
     menu->addSeparator();
     menu->addAction(ui->quit);
     menu->exec(this->cursor().pos()); //让菜单显示的位置在鼠标的坐标上
@@ -37,7 +39,7 @@ void MainWindow::value_time()
         back_day    = now_day;
         back_hour   = now_hour;
         back_minute = now_minute;
-        time_mode        = 0;
+        time_mode   = 0;
 
     }
     else    //读取配置文件成功
@@ -48,7 +50,7 @@ void MainWindow::value_time()
         back_day    = in.readLine().toInt();
         back_hour   = in.readLine().toInt();
         back_minute = in.readLine().toInt();
-        time_mode    = in.readLine().toInt();
+        time_mode   = in.readLine().toInt();
         file.close();
     }
 }
@@ -104,21 +106,39 @@ void MainWindow::value_birthday()
     if (!file.open(QIODevice::ReadOnly | QFile::Text))  //无配置文件
     {
         QDate current_date = QDate::currentDate();
-        my_birthday_month = current_date.month();
-        my_birthday_day = current_date.day();
+        my_birthday_month  = current_date.month();
+        my_birthday_day    = current_date.day();
         her_birthday_month = current_date.month();
-        her_birthday_day = current_date.day();
-        birthday_mode   = 1;
+        her_birthday_day   = current_date.day();
+        birthday_mode      = 1;
 
     }
     else    //读取配置文件成功
     {
         QTextStream in(&file);
-        my_birthday_month   = in.readLine().toInt();
-        my_birthday_day  = in.readLine().toInt();
-        her_birthday_month    = in.readLine().toInt();
+        my_birthday_month  = in.readLine().toInt();
+        my_birthday_day    = in.readLine().toInt();
+        her_birthday_month = in.readLine().toInt();
         her_birthday_day   = in.readLine().toInt();
-        birthday_mode    = in.readLine().toInt();
+        birthday_mode      = in.readLine().toInt();
+        file.close();
+    }
+}
+
+void MainWindow::value_weather()
+{
+    QFile file("weather.txt");
+    if (!file.open(QIODevice::ReadOnly | QFile::Text))  //无配置文件
+    {
+        my_city  = "北京";
+        her_city = "北京";
+
+    }
+    else    //读取配置文件成功
+    {
+        QTextStream in(&file);
+        my_city  = in.readLine();
+        her_city = in.readLine();
         file.close();
     }
 }
@@ -177,15 +197,15 @@ void MainWindow::refresh_birthday()
     {
     case 0:
         {
-        int today_yang_year = QDate::currentDate().year();
+        int today_yang_year  = QDate::currentDate().year();
         int today_yang_month = QDate::currentDate().month();
-        int today_yang_day = QDate::currentDate().day();
+        int today_yang_day   = QDate::currentDate().day();
         QDate today_yin = conver_from_yang_to_yin(today_yang_year, today_yang_month, today_yang_day );
 
-        int my_birthday_yin_month = my_birthday_month;
-        int my_birthday_yin_day = my_birthday_day;
+        int my_birthday_yin_month  = my_birthday_month;
+        int my_birthday_yin_day    = my_birthday_day;
         int her_birthday_yin_month = her_birthday_month;
-        int her_birthday_yin_day = her_birthday_day;
+        int her_birthday_yin_day   = her_birthday_day;
 
         int my_nextbirthday_yin_year;
         int her_nextbirthday_yin_year;
@@ -196,7 +216,7 @@ void MainWindow::refresh_birthday()
         }
         else if (today_yin.month() > my_birthday_yin_month)
         {
-            my_nextbirthday_yin_year = today_yin.year() +1;
+            my_nextbirthday_yin_year = today_yin.year() + 1;
         }
         else  // today_yin.month() = my_birthday_yin_month
         {
@@ -206,7 +226,7 @@ void MainWindow::refresh_birthday()
             }
             else
             {
-                my_nextbirthday_yin_year = today_yin.year() +1;
+                my_nextbirthday_yin_year = today_yin.year() + 1;
             }
         }
 
@@ -216,7 +236,7 @@ void MainWindow::refresh_birthday()
         }
         else if (today_yin.month() > her_birthday_yin_month)
         {
-            her_nextbirthday_yin_year = today_yin.year() +1;
+            her_nextbirthday_yin_year = today_yin.year() + 1;
         }
         else  // today_yin.month() = her_birthday_yin_month
         {
@@ -226,34 +246,34 @@ void MainWindow::refresh_birthday()
             }
             else
             {
-                her_nextbirthday_yin_year = today_yin.year() +1;
+                her_nextbirthday_yin_year = today_yin.year() + 1;
             }
         }
 
-        QDate my_next_birthday_yang = conver_from_yin_to_yang(my_nextbirthday_yin_year, my_birthday_yin_month, my_birthday_yin_day);
+        QDate my_next_birthday_yang  = conver_from_yin_to_yang(my_nextbirthday_yin_year,  my_birthday_yin_month,  my_birthday_yin_day);
         QDate her_next_birthday_yang = conver_from_yin_to_yang(her_nextbirthday_yin_year, her_birthday_yin_month, her_birthday_yin_day);
-        int my_nextbirthday_num = day_num_between_days(today_yang_year, today_yang_month,  today_yang_day,
-                                                                                                 my_next_birthday_yang.year(), my_next_birthday_yang.month(), my_next_birthday_yang.day());
+        int my_nextbirthday_num  = day_num_between_days(today_yang_year, today_yang_month,  today_yang_day,
+                                                       my_next_birthday_yang.year(),  my_next_birthday_yang.month(),  my_next_birthday_yang.day());
         int her_nextbirthday_num = day_num_between_days(today_yang_year, today_yang_month,  today_yang_day,
-                                                                                                 her_next_birthday_yang.year(), her_next_birthday_yang.month(), her_next_birthday_yang.day());
+                                                       her_next_birthday_yang.year(), her_next_birthday_yang.month(), her_next_birthday_yang.day());
 
         ui->my_nextbirthday_label->setText(tr("%1").arg(my_nextbirthday_num));
         ui->her_nextbirthday_label->setText(tr("%1").arg(her_nextbirthday_num));
-        show_birthday(ui->today_label, 'i',  today_yin.month(), today_yin.day());
-        show_birthday(ui->my_birthday_label, 'i', my_birthday_yin_month, my_birthday_yin_day);
+        show_birthday(ui->today_label,        'i', today_yin.month(),      today_yin.day());
+        show_birthday(ui->my_birthday_label,  'i', my_birthday_yin_month,  my_birthday_yin_day);
         show_birthday(ui->her_birthday_label, 'i', her_birthday_yin_month, her_birthday_yin_day);
         break;
         }
     case 1:
         {
-        int today_yang_year = QDate::currentDate().year();
+        int today_yang_year  = QDate::currentDate().year();
         int today_yang_month = QDate::currentDate().month();
-        int today_yang_day = QDate::currentDate().day();
+        int today_yang_day   = QDate::currentDate().day();
 
-        int my_birthday_yang_month = my_birthday_month;
-        int my_birthday_yang_day = my_birthday_day;
+        int my_birthday_yang_month  = my_birthday_month;
+        int my_birthday_yang_day    = my_birthday_day;
         int her_birthday_yang_month = her_birthday_month;
-        int her_birthday_yang_day = her_birthday_day;
+        int her_birthday_yang_day   = her_birthday_day;
 
         int my_nextbirthday_yang_year;
         int her_nextbirthday_yang_year;
@@ -264,7 +284,7 @@ void MainWindow::refresh_birthday()
         }
         else if (today_yang_month > my_birthday_yang_month)
         {
-            my_nextbirthday_yang_year = today_yang_year+1;
+            my_nextbirthday_yang_year = today_yang_year + 1;
         }
         else  // today_yang_month() = my_birthday_yang_month
         {
@@ -274,7 +294,7 @@ void MainWindow::refresh_birthday()
             }
             else
             {
-                my_nextbirthday_yang_year = today_yang_year +1;
+                my_nextbirthday_yang_year = today_yang_year + 1;
             }
         }
 
@@ -284,7 +304,7 @@ void MainWindow::refresh_birthday()
         }
         else if (today_yang_month > her_birthday_yang_month)
         {
-            her_nextbirthday_yang_year = today_yang_year+1;
+            her_nextbirthday_yang_year = today_yang_year + 1;
         }
         else  // today_yang_month() = her_birthday_yang_month
         {
@@ -294,23 +314,67 @@ void MainWindow::refresh_birthday()
             }
             else
             {
-                her_nextbirthday_yang_year = today_yang_year +1;
+                her_nextbirthday_yang_year = today_yang_year + 1;
             }
         }
 
-        int my_nextbirthday_num = day_num_between_days(today_yang_year, today_yang_month,  today_yang_day,
-                                                                                                 my_nextbirthday_yang_year, my_birthday_yang_month, my_birthday_yang_day);
-        int her_nextbirthday_num = day_num_between_days(today_yang_year, today_yang_month,  today_yang_day,
-                                                                                                 her_nextbirthday_yang_year, her_birthday_yang_month, her_birthday_yang_day);
+        int my_nextbirthday_num  = day_num_between_days(today_yang_year, today_yang_month, today_yang_day,
+                                                       my_nextbirthday_yang_year,  my_birthday_yang_month,  my_birthday_yang_day);
+        int her_nextbirthday_num = day_num_between_days(today_yang_year, today_yang_month, today_yang_day,
+                                                       her_nextbirthday_yang_year, her_birthday_yang_month, her_birthday_yang_day);
 
         ui->my_nextbirthday_label->setText(tr("%1").arg(my_nextbirthday_num));
         ui->her_nextbirthday_label->setText(tr("%1").arg(her_nextbirthday_num));
-        show_birthday(ui->today_label, 'a', today_yang_month, today_yang_day);
-        show_birthday(ui->my_birthday_label, 'a', my_birthday_yang_month, my_birthday_yang_day);
+        show_birthday(ui->today_label,        'a', today_yang_month,        today_yang_day);
+        show_birthday(ui->my_birthday_label,  'a', my_birthday_yang_month,  my_birthday_yang_day);
         show_birthday(ui->her_birthday_label, 'a', her_birthday_yang_month, her_birthday_yang_day);
         break;
         }
     default:
         break;
     }
+}
+
+void MainWindow::refresh_weather()
+{
+    int person = ui->select_person_comboBox->currentIndex();
+    switch (person)
+    {
+    case 0:
+        {
+        my_cityManager.getWeatherbyCityName(my_city, std::bind(&MainWindow::show_weather, this, std::placeholders::_1));
+        ui->city_label->setText(my_city);
+        break;
+        }
+    case 1:
+        {
+        her_cityManager.getWeatherbyCityName(her_city, std::bind(&MainWindow::show_weather, this, std::placeholders::_1));
+        ui->city_label->setText(her_city);
+        break;
+        }
+    default:
+        break;
+    }
+}
+
+void MainWindow::show_weather(const QStringList &strList)
+{
+    if (strList.count() < 23)
+    {
+        return;
+    }
+
+    QString strImage(":/new/prefix1/weather/");
+    ui->labelImage1->setPixmap(QPixmap(strImage + strList[8]));
+    ui->labelImage2->setPixmap(QPixmap(strImage + strList[9]));
+    ui->labelTemperature->setText(strList[5]);
+    ui->labelWeather->setText(strList[6]);
+    ui->labelWind->setText(strList[7]);
+
+    ui->labelImage3->setPixmap(QPixmap(strImage + strList[15]));
+    ui->labelImage4->setPixmap(QPixmap(strImage + strList[16]));
+    ui->labelTemperature_2->setText(strList[12]);
+    ui->labelWeather_2->setText(strList[13]);
+    ui->labelWind_2->setText(strList[14]);
+    ui->textBrowser->setText(strList[22]);
 }
