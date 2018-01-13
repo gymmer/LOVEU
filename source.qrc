@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/new/ico">
+        <file>Image/quit.ico</file>
+        <file>Image/time.ico</file>
+        <file>Image/help.ico</file>
+        <file>Image/rfresh.ico</file>
+        <file>Image/info.ico</file>
+    </qresource>
+</RCC>
