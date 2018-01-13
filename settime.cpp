@@ -19,6 +19,7 @@ settime::settime(QWidget *parent) :
 
     QDate back_date;
     QTime back_time;
+    int mode;
 
     //以只读方式打开配置文件time.txt
     QFile file("time.txt");
@@ -26,6 +27,7 @@ settime::settime(QWidget *parent) :
     {
         back_date.setDate(current_date.year(), current_date.month(), current_date.day());
         back_time.setHMS (current_time.hour(), current_time.minute(),0);
+        mode = 0;
     }
     else    //读取配置文件成功
     {
@@ -35,6 +37,7 @@ settime::settime(QWidget *parent) :
         int back_day    = in.readLine().toInt();
         int back_hour   = in.readLine().toInt();
         int back_minute = in.readLine().toInt();
+        mode = in.readLine().toInt();
         back_date.setDate(back_year, back_month, back_day);
         back_time.setHMS(back_hour,back_minute,0);
         file.close();
@@ -42,6 +45,7 @@ settime::settime(QWidget *parent) :
 
     ui->dateEdit->setDate(back_date);
     ui->timeEdit->setTime(back_time);
+    ui->comboBox->setCurrentIndex(mode);
 }
 
 settime::~settime()
@@ -58,6 +62,7 @@ void settime::on_save_pushButton_clicked()
     int back_day    = back_date.day();
     int back_hour   = back_time.hour();
     int back_minute = back_time.minute();
+    int mode        = ui->comboBox->currentIndex();
 
     //以只写方式打开文件。若文件不存在，那么创建文件time.txt
     QFile file("time.txt");
@@ -66,8 +71,8 @@ void settime::on_save_pushButton_clicked()
         qDebug() << endl << file.errorString();
     }
     QTextStream out(&file);
-    out << back_year << endl << back_month << endl << back_day << endl
-        << back_hour << endl << back_minute;
+    out << back_year << endl << back_month  << endl << back_day << endl
+        << back_hour << endl << back_minute << endl << mode;
     file.close();
     close();
 }

@@ -35,6 +35,8 @@ void MainWindow::value_time()
         back_day    = now_day;
         back_hour   = now_hour;
         back_minute = now_minute;
+        mode        = 0;
+
     }
     else    //读取配置文件成功
     {
@@ -44,6 +46,7 @@ void MainWindow::value_time()
         back_day    = in.readLine().toInt();
         back_hour   = in.readLine().toInt();
         back_minute = in.readLine().toInt();
+        mode        = in.readLine().toInt();
         file.close();
     }
 }
@@ -96,9 +99,25 @@ void MainWindow::value_memory()
 void MainWindow::refresh_time()
 {
     int day_num = day_num_between_days(now_year, now_month, now_day, back_year, back_month, back_day);
-    int hour_num = day_num * 24 + (back_hour - now_hour);
 
-    ui->hour_num_label->setText(tr("%1").arg(hour_num));
+    switch (mode)
+    {
+    case 0: //倒计时模式：小时
+    {
+        int hour_num = day_num * 24 + (back_hour - now_hour);
+        ui->time_num_label->setText(tr("%1").arg(hour_num));
+        ui->mode_label->setText("小时！");
+        break;
+    }
+    case 1: //倒计时模式：天
+    {
+        ui->time_num_label->setText(tr("%1").arg(day_num));
+        ui->mode_label->setText("天！");
+        break;
+    }
+    default:
+        break;
+    }
     show_time(ui->now_date_label,  'd', now_year,  now_month,  now_day);
     show_time(ui->back_date_label, 'd', back_year, back_month, back_day);
     show_time(ui->now_time_label,  't', now_hour,  now_minute, 0);

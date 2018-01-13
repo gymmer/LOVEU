@@ -37,8 +37,8 @@ public:
     int run_num_between_years(int start_year, int end_year);        //输入的年份中，有多少个闰年
     int day_num_between_days(int start_year, int start_month, int start_day, int end_year, int end_month, int end_day);
                                                                     //输入的起止日期内，有多少天
-    void show_time(QLabel *label, char mode, int year_hour, int month_hour, int day_minute);
-                                                                    //显示输入的日期或时间。mode='t'，时间。'd'，日期。
+    void show_time(QLabel *label, char flag, int year_hour, int month_hour, int day_minute);
+                                                                    //显示输入的日期或时间。flag='t'，时间。'd'，日期。
 
 private slots:
     //在def_triggered.cpp中实现
@@ -67,6 +67,8 @@ private:
     int back_day;
     int back_hour;
     int back_minute;
+
+    int mode;   //倒计时模式。0：小时。1：天
 
     int toge_year;
     int toge_month;

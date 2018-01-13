@@ -51,9 +51,9 @@ int MainWindow::day_num_between_days(int start_year, int start_month, int start_
     return day_num;
 }
 
-void MainWindow::show_time(QLabel *label, char mode, int year_hour, int month_minute, int day_second)
+void MainWindow::show_time(QLabel *label, char flag, int year_hour, int month_minute, int day_second)
 {     
-    switch (mode)
+    switch (flag)
     {
     case 't':   //时间
         if (year_hour < 10)//若分钟数比9小，如17点1分，使17:1显示为17:01
