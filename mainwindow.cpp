@@ -14,10 +14,12 @@ MainWindow::MainWindow(QWidget *parent) :
     value_memory();
     value_birthday();
     value_weather();
+    value_word();
     refresh_time();
     refresh_memory();
     refresh_birthday();
     refresh_weather();
+    refresh_word();
 }
 
 MainWindow::~MainWindow()

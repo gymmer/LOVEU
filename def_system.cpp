@@ -8,11 +8,14 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
     menu->addAction(ui->rfreshmemory);
     menu->addAction(ui->rfreshbirthday);
     menu->addAction(ui->rfreshweather);
+    menu->addAction(ui->rfreshword);
     menu->addSeparator();
     menu->addAction(ui->settime);
     menu->addAction(ui->setmemory);
     menu->addAction(ui->setbirthday);
     menu->addAction(ui->setweather);
+    menu->addAction(ui->setword);
+    menu->addAction(ui->selectword);
     menu->addSeparator();
     menu->addAction(ui->quit);
     menu->exec(this->cursor().pos()); //让菜单显示的位置在鼠标的坐标上
@@ -139,6 +142,23 @@ void MainWindow::value_weather()
         QTextStream in(&file);
         my_city  = in.readLine();
         her_city = in.readLine();
+        file.close();
+    }
+}
+
+void MainWindow::value_word()
+{
+    QFile file("wordFileName.txt");
+    if (!file.open(QIODevice::ReadOnly | QFile::Text))  //无配置文件
+    {
+        word_fileName = "\0";
+        word_str = "\0";
+    }
+    else    //读取配置文件成功
+    {
+        QTextStream in(&file);
+        word_fileName = in.readLine();
+        word_str = XorDecrypt(word_fileName,11);
         file.close();
     }
 }
@@ -377,4 +397,48 @@ void MainWindow::show_weather(const QStringList &strList)
     ui->labelWeather_2->setText(strList[13]);
     ui->labelWind_2->setText(strList[14]);
     ui->textBrowser->setText(strList[22]);
+}
+
+void MainWindow::refresh_word()
+{
+    QStringList mylist = word_str.split("\n");
+    QString prefix = mylist[0];
+    if (prefix != "~!@#$%^&*()_+")
+    {
+        ui->word_label->setText(tr("没有读取到留言 =.=\n\n\n可能的原因有：\n\n1.尚未选择留言的解密文件\n2.所选择的解密文件不是由本软件生成的"));
+        return;
+    }
+
+    QString word = mylist[1];
+    QString isRequired = mylist[2];
+    if (isRequired == "0")
+    {
+        ui->word_label->setText(word);
+    }
+    else
+    {
+        int year   = mylist[3].toInt();
+        int month  = mylist[4].toInt();
+        int day    = mylist[5].toInt();
+        int hour   = mylist[6].toInt();
+        int minute = mylist[7].toInt();
+        QDateTime words;
+        QDate word_date;
+        QTime word_time;
+        word_date.setDate(year, month, day);
+        word_time.setHMS(hour,minute,0);
+        words.setDate(word_date);
+        words.setTime(word_time);
+
+        if (words.operator <=(QDateTime::currentDateTime()))
+        {
+            ui->word_label->setText(word + tr("\n\n\n此留言已于 %1年%2月%3日 %4时%5分 开启")
+                                    .arg(year).arg(month).arg(day).arg(hour).arg(minute));
+        }
+        else
+        {
+            ui->word_label->setText(tr("还没有到揭秘留言的时间哦！\n\n\n留言将于 %1年%2月%3日 %4时%5分 准时开启\n\n敬请期待...")
+                                    .arg(year).arg(month).arg(day).arg(hour).arg(minute));
+        }
+    }
 }

@@ -6,9 +6,12 @@
 #include "setmemory.h"
 #include "setbirthday.h"
 #include "setweather.h"
+#include "setword.h"
 #include "info.h"
 #include "usage.h"
 #include "citymanager.h"
+#include "XorEncryptDecrypt.h"
+
 #include <QLabel>
 #include <QDate>
 #include <QTime>
@@ -38,6 +41,7 @@ public:
     void value_birthday();                                          //为生日赋值
     void value_weather();                                           //为所在城市赋值，以读取该城市天气
     void show_weather(const QStringList &strList);                  //显示天气
+    void value_word();                                              //为留言赋值
 
     //在def_function.cpp中实现
     int day_number_in_year(int year,int month, int day);             //输入的日期，是当年的第几天
@@ -58,10 +62,13 @@ private slots:
     void on_setmemory_triggered();
     void on_setbirthday_triggered();
     void on_setweather_triggered();
+    void on_setword_triggered();
     void on_rfreshtime_triggered();
     void on_rfreshmemory_triggered();
     void on_rfreshbirthday_triggered();
     void on_rfreshweather_triggered();
+    void on_rfreshword_triggered();
+    void on_selectword_triggered();
     void on_about_triggered();
     void on_usage_triggered();
 
@@ -76,12 +83,16 @@ private slots:
     void on_set_weather_toolButton_clicked();
     void on_select_person_comboBox_currentIndexChanged(int index);
     void on_toolButton_toggled(bool checked);
+    void on_refresh_word_toolButton_clicked();
+    void on_set_word_toolButton_clicked();
+    void on_select_word_toolButton_clicked();
 
     //在def_system.cpp中实现
-    void refresh_time();                                            //刷新倒计时
-    void refresh_memory();                                          //刷新纪念日
-    void refresh_birthday();                                        //刷新生日
-    void refresh_weather();                                         //刷新天气
+    void refresh_time();        //刷新倒计时
+    void refresh_memory();      //刷新纪念日
+    void refresh_birthday();    //刷新生日
+    void refresh_weather();     //刷新天气
+    void refresh_word();        //刷新留言
 
 private:
     Ui::MainWindow *ui;
@@ -131,6 +142,11 @@ private:
     QString her_city;
     CityManager my_cityManager;
     CityManager her_cityManager;
+
+    //留言
+    QString word_fileName;
+    QString word_str;
+
 };
 
 #endif // MAINWINDOW_H

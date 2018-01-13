@@ -14,5 +14,8 @@
         <file>Image/refreshweather.ico</file>
         <file>Image/weather.ico</file>
         <file>Image/city.ico</file>
+        <file>Image/refreshword.ico</file>
+        <file>Image/word.ico</file>
+        <file>Image/selectword.ico</file>
     </qresource>
 </RCC>

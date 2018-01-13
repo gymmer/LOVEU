@@ -34,6 +34,13 @@ void MainWindow::on_setweather_triggered()
     connect(setweather_window,SIGNAL(finished(int)),this,SLOT(on_rfreshweather_triggered()));
 }
 
+void MainWindow::on_setword_triggered()
+{
+    setword *setword_window = new setword(this);
+    setword_window->show();
+    //connect(setword_window,SIGNAL(finished(int)),this,SLOT(on_rfreshword_triggered()));
+}
+
 void MainWindow::on_rfreshtime_triggered()
 {
     value_time();
@@ -60,6 +67,30 @@ void MainWindow::on_rfreshweather_triggered()
     value_weather();
     refresh_weather();
     ui->tabWidget->setCurrentIndex(3);
+}
+
+void MainWindow::on_rfreshword_triggered()
+{
+    value_word();
+    refresh_word();
+    ui->tabWidget->setCurrentIndex(4);
+}
+
+void MainWindow::on_selectword_triggered()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,tr("选择路径"));
+    if (!fileName.isEmpty())
+    {
+        QFile file("wordFileName.txt");
+        if (!file.open(QIODevice::WriteOnly | QFile::Text))
+        {
+            qDebug() << endl << file.errorString();
+        }
+        QTextStream out(&file);
+        out << fileName;
+        file.close();
+        on_rfreshword_triggered();
+    }
 }
 
 void MainWindow::on_about_triggered()

@@ -28,7 +28,9 @@ SOURCES += main.cpp\
     setbirthday.cpp \
     def_toolButton.cpp \
     citymanager.cpp \
-    setweather.cpp
+    setweather.cpp \
+    setword.cpp \
+    XorEncryptDecrypt.cpp
 
 HEADERS  += mainwindow.h \
     settime.h \
@@ -37,7 +39,9 @@ HEADERS  += mainwindow.h \
     setmemory.h \
     setbirthday.h \
     citymanager.h \
-    setweather.h
+    setweather.h \
+    setword.h \
+    XorEncryptDecrypt.h
 
 FORMS    += mainwindow.ui \
     settime.ui \
@@ -45,7 +49,8 @@ FORMS    += mainwindow.ui \
     usage.ui \
     setmemory.ui \
     setbirthday.ui \
-    setweather.ui
+    setweather.ui \
+    setword.ui
 
 RC_FILE += LOVEU.rc
 

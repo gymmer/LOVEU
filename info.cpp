@@ -8,8 +8,8 @@ info::info(QWidget *parent) :
     ui->setupUi(this);
     setWindowTitle("关于作者");
 
-    ui->version_label->setText("版本：4.0");
-    ui->date_label->setText("日期：2015.1.27");
+    ui->version_label->setText("版本：5.0");
+    ui->date_label->setText("日期：2015.2.4");
 }
 
 info::~info()
