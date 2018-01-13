@@ -9,5 +9,7 @@
         <file>Image/rfreshtime.ico</file>
         <file>Image/rfeshbirthday.ico</file>
         <file>Image/birthday.ico</file>
+        <file>Image/setting.ico</file>
+        <file>Image/refresh.ico</file>
     </qresource>
 </RCC>

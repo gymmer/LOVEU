@@ -1,8 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
 
 int MainWindow::day_number_in_year(int year, int month, int day)
 {

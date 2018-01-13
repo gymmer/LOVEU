@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     def_function.cpp \
     def_system.cpp \
     def_triggered.cpp \
-    setbirthday.cpp
+    setbirthday.cpp \
+    def_toolButton.cpp
 
 HEADERS  += mainwindow.h \
     settime.h \

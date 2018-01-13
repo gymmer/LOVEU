@@ -58,6 +58,14 @@ private slots:
     void on_about_triggered();
     void on_usage_triggered();
 
+    //在def_toolButton.cpp中实现
+    void on_refresh_time_toolButton_clicked();
+    void on_set_time_toolButton_clicked();
+    void on_refresh_memory_toolButton_clicked();
+    void on_set_memory_toolButton_clicked();
+    void on_refresh_birthday_toolButton_clicked();
+    void on_set_birthday_toolButton_clicked();
+
     //在def_system.cpp中实现
     void refresh_time();                                            //刷新倒计时
     void refresh_memory();                                          //刷新纪念日
